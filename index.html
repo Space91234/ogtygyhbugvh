@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Throw Calculator</title>
+</head>
+<body>
+    <h2>Perfect Throw Calculator</h2>
+    <label for="vert_position">Vertical Height (inches):</label>
+    <input type="number" id="vert_position" placeholder="e.g., 30" required>
+    <br><br>
+    <button onclick="calculate()">Calculate</button>
+
+    <h3>Results:</h3>
+    <p id="result"></p>
+
+    <script>
+        function calculateThrowSpeed(vert_position, delta_x) {
+            const g = 386.09; // Gravitational acceleration in inches/s²
+            
+            // Calculate initial velocity using the formula
+            const initial_velocity = delta_x / Math.sqrt(vert_position / (0.5 * g));
+            return initial_velocity.toFixed(10); // Return with high precision
+        }
+
+        function calculate() {
+            let vert_position = parseFloat(document.getElementById('vert_position').value);
+            const delta_x = 88.5; // Fixed horizontal distance in inches
+
+            // Input validation
+            if (isNaN(vert_position) || vert_position <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid vertical position.";
+                return;
+            }
+
+            let required_speed = calculateThrowSpeed(vert_position, delta_x);
+            document.getElementById('result').innerText = `Required Initial Speed: ${required_speed} inches/second to reach the target.`;
+        }
+    </script>
+</body>
+</html>
